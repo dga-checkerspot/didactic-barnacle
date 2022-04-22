@@ -8,17 +8,37 @@ fasta_dataset=Channel.fromPath(params.fasta)
 
 
 process formatdb {
-	memory '96G'
 	
 	input:
 	path nr from nr_dataset
 	
 	output:
-	file "nr*" into maskedGenome
+	file "nr*" into formatteddb
 	
 	"""
 	gunzip $nr
-  makeblastdb -dbtype prot -in nr
+  	makeblastdb -dbtype prot -in nr
 	"""
 	
 }
+
+process runblast {
+	memory '2G'
+	
+	input:
+	path db from formatteddb.collect()
+	
+	output:
+	file "blastfiles.txt" into blastoutput
+	
+	
+	"""
+	ls nr* > blastfiles.txt
+	"""
+	
+}
+
+
+
+
+

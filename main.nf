@@ -51,7 +51,7 @@ process splitfasta {
 	
 	
 	"""
-	gt splitfasta -numfiles 20 $fastafile
+	gt splitfasta -numfiles 100 $fastafile
 	"""
 	
 }
@@ -59,7 +59,7 @@ process splitfasta {
 
 
 
-chunks=20
+chunks=100
 
 
 process runfasta {

@@ -68,7 +68,7 @@ process runfasta {
 	
 	
 	"""
-	wc -l $fastas > $fasta.lines.txt
+	wc -l $fastas > $fastas.lines.txt
 	"""
 
 }

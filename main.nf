@@ -70,7 +70,7 @@ process runfasta {
 	path fastas from splits.collect()
 	
 	output:
-	file "${fastas}.lines.txt" into blastouts
+	file "CHK22_ref1_AA.fasta.${x}.lines.txt" into blastouts
 	
 	
 	"""

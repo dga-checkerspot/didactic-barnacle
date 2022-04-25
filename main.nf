@@ -47,7 +47,7 @@ process splitfasta {
 	path fastafile from fasta_dataset
 	
 	output:
-	file "$fastafile.*" into mergeGtHints
+	file "$fastafile.*" into splits
 	
 	
 	"""
@@ -57,7 +57,21 @@ process splitfasta {
 }
 
 
+process runfasta {
+	memory '2G'
+	
+	input:
+	path fastas from splits
+	
+	output:
+	file "$fasta.lines.txt" into blastouts
+	
+	
+	"""
+	wc -l $fastas > $fasta.lines.txt
+	"""
 
+}
 
 
 

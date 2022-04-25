@@ -38,6 +38,28 @@ process runblast {
 	
 }
 
+process splitfasta {
+	memory '2G'
+	
+	input:
+	path fastafile from fasta_dataset
+	
+	output:
+	file "$fastafile.*" into mergeGtHints
+	
+	
+	"""
+	gt splitfasta -numfiles 100 $fastafile
+	"""
+	
+}
+
+
+
+
+
+
+
 
 
 

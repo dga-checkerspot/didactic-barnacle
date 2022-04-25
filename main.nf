@@ -64,11 +64,11 @@ process runfasta {
 	path fastas from splits
 	
 	output:
-	file "$fasta.lines.txt" into blastouts
+	file "${fastas}.lines.txt" into blastouts
 	
 	
 	"""
-	wc -l $fastas > $fastas.lines.txt
+	wc -l $fastas > "${fastas}.lines.txt"
 	"""
 
 }

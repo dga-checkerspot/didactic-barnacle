@@ -6,7 +6,7 @@ nr_dataset = Channel.fromPath(params.nr)
 params.fasta='s3://pipe.scratch.3/resources/CHK22_ref1_AA.fasta'
 fasta_dataset=Channel.fromPath(params.fasta)
 
-/*
+
 process formatdb {
 	
 	input:
@@ -22,6 +22,7 @@ process formatdb {
 	
 }
 
+/*
 process runblast {
 	memory '2G'
 	
@@ -68,13 +69,14 @@ process runfasta {
 	input:
 	each x from 1..chunks
 	path fastas from splits.collect()
+	path db from formatteddb.collect()
 	
 	output:
-	file "CHK22_ref1_AA.fasta.${x}.lines.txt" into blastouts
+	file "CHK22_ref1_AA.fasta.${x}.blastout.txt" into blastouts
 	
 	
 	"""
-	wc -l "CHK22_ref1_AA.fasta.${x}" > "CHK22_ref1_AA.fasta.${x}.lines.txt"
+	blastp –db nr –query "CHK22_ref1_AA.fasta.${x}" -outfmt 6 -max_target_seqs 1 –out  "CHK22_ref1_AA.fasta.${x}.blastout.txt"
 	"""
 
 }

@@ -67,7 +67,7 @@ process runfasta {
 	
 	input:
 	each x from 1..chunks
-	path fastas from splits
+	path fastas from splits.collect()
 	
 	output:
 	file "${fastas}.lines.txt" into blastouts

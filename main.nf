@@ -47,7 +47,7 @@ process splitfasta {
 	path fastafile from fasta_dataset
 	
 	output:
-	file "$fastafile.*" into splits
+	path "$fastafile.*" into splits
 	
 	
 	"""

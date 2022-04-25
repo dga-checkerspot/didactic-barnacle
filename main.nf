@@ -57,10 +57,34 @@ process splitfasta {
 }
 
 
+
+
+chunks=100
+
+process bootstrapReplicateTrees {
+    publishDir "$results_path/$datasetID/bootstrapsReplicateTrees"
+
+    input:
+    each x from 1..bootstrapReplicates
+    set val(datasetID), file(ClustalwPhylips)
+
+    output:
+    file "bootstrapTree_${x}.nwk" into bootstrapReplicateTrees
+
+    script:
+    // Generate Bootstrap Trees
+    """
+    raxmlHPC -m PROTGAMMAJTT -n tmpPhylip${x} -s tmpPhylip${x}
+    mv "RAxML_bestTree.tmpPhylip${x}" bootstrapTree_${x}.nwk
+    """
+}
+
+
 process runfasta {
 	memory '2G'
 	
 	input:
+	each x from 1..chunks
 	path fastas from splits
 	
 	output:
@@ -68,7 +92,7 @@ process runfasta {
 	
 	
 	"""
-	wc -l $fastas > "${fastas}.lines.txt"
+	wc -l "CHK22_ref1_AA.fasta.${x}" > "CHK22_ref1_AA.fasta.${x}.lines.txt"
 	"""
 
 }

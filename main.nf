@@ -6,7 +6,7 @@ nr_dataset = Channel.fromPath(params.nr)
 params.fasta='s3://pipe.scratch.3/resources/CHK22_ref1_AA.fasta'
 fasta_dataset=Channel.fromPath(params.fasta)
 
-
+/*
 process formatdb {
 	
 	input:
@@ -37,6 +37,8 @@ process runblast {
 	"""
 	
 }
+*/
+
 
 process splitfasta {
 	memory '2G'

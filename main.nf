@@ -76,7 +76,7 @@ process runfasta {
 	
 	
 	"""
-	blastp –db nr –query "CHK22_ref1_AA.fasta.${x}" -outfmt 6 -max_target_seqs 1 –out  "CHK22_ref1_AA.fasta.${x}.blastout.txt"
+	blastp -db nr -query "CHK22_ref1_AA.fasta.${x}" -outfmt 6 -max_target_seqs 1 -out  "CHK22_ref1_AA.fasta.${x}.blastout.txt"
 	"""
 
 }

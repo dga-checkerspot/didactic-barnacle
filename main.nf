@@ -58,9 +58,9 @@ process splitfasta {
 }
 
 
+formatteddb.into { formatteddb_blast; formatteddb_header }
 
-
-chunks=100
+chunks=98
 
 
 process runfasta {
@@ -69,7 +69,7 @@ process runfasta {
 	input:
 	each x from 1..chunks
 	path fastas from splits.collect()
-	path db from formatteddb.collect()
+	path db from formatteddb_blast.collect()
 	
 	output:
 	file "CHK22_ref1_AA.fasta.${x}.blastout.txt" into blastouts
@@ -83,7 +83,21 @@ process runfasta {
 
 
 
+process pullheaders {
+	memory '2G'
+	
+	input:
+	path db from formatteddb_header.collect()
+	
+	output:
+	file "functionHeader.txt" into headerouts
+	
+	
+	"""
+	grep ">" $db > functionHeader.txt
+	"""
 
+}
 
 
 
